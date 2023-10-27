@@ -79,7 +79,7 @@ const baseConfig = {
     clean: true                   // webpack5不需要clean-webpack-plugin，会自动追踪新增、删除、修改的文件
   },
   resolve: {
-    extensions: ['.js', 'jsx', '.ts', '.tsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
     // 别名配置，需要同步tsconfig.json中paths字段
     alias: {
       '@utils': '/utils', // 每当引模块的时候，它会直接从映射的路径引入而不需要按模块的查找规则查找, 加快 webpack 查找模块的速度

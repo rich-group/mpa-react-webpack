@@ -1,3 +1,4 @@
+const devMode = process.env.NODE_ENV !== 'production';
 module.exports = function (api, options = {}) {
   // if (api) {
   //   api.cache.never();
@@ -5,20 +6,19 @@ module.exports = function (api, options = {}) {
   api.cache(true);
   let presets = [
     "@babel/preset-react",
-    '@babel/preset-typescript'
-  ]
-  let plugins = [
-    '@babel/plugin-transform-typescript' // 不加的话, .vue中使用<script lang=ts></script> 报错
-  ]
-
-  if (process.env.NODE_ENV === 'production') {
-    presets.push([
+    '@babel/preset-typescript',
+    [
       '@babel/preset-env',
       {
         'useBuiltIns': 'usage',
         'corejs': 3
       }
-    ])
+    ]
+  ]
+  let plugins = []
+
+  if (!devMode) {
+    //
   }
 
   return {
