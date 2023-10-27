@@ -1,3 +1,4 @@
+const devMode = process.env.NODE_ENV !== 'production';
 module.exports = function (api, options = {}) {
   // if (api) {
   //   api.cache.never();
@@ -21,7 +22,8 @@ module.exports = function (api, options = {}) {
     ],
   ]
 
-  if (process.env.NODE_ENV === 'production') {
+  if (!devMode) {
+    //
   }
 
   return {
