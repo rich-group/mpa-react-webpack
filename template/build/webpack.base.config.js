@@ -26,10 +26,10 @@ function getEntries (rootName, moduleName) {
     const pages = globSync(`${rootName}/+(**)/`).map(path => path.replace(/src\/([0-9a-zA-Z])+\//, ''));
     return moduleName === undefined 
       ? pages.reduce((entry, pageName) => {
-        entry[pageName] = `./${rootName}/${pageName}/main.tsx`;
+        entry[pageName] = `./${rootName}/${pageName}/main.jsx`;
         return entry;
       }, {})
-      : {[moduleName]: `./${rootName}/${moduleName}/main.tsx`};
+      : {[moduleName]: `./${rootName}/${moduleName}/main.jsx`};
   }
   throw new Error('The pages folder is missing in the src directory');
 }
