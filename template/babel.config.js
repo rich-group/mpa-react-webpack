@@ -6,7 +6,7 @@ module.exports = function (api, options = {}) {
   api.cache(true);
   let presets = [
     "@babel/preset-react",
-    '@babel/preset-typescript',
+    {{#if ts}}'@babel/preset-typescript',{{/if}}
     [
       '@babel/preset-env',
       {
