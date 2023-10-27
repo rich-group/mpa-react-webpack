@@ -1,0 +1,65 @@
+{
+  "scripts": {
+    "dev": [
+      "node",
+      "build/dev.server.js",
+      "--env",
+      {"type": "list", "message": "请选择环境", "choices": ["dev", "sit", "pre", "prd"], "default": 0},
+      "--module",
+      {"type": "text", "message": "请输入启动的模块"}
+    ],
+    "build:dev": [
+      "node",
+      "build/build.js",
+      "--env",
+      "dev"
+    ],
+    "build:sit": [
+      "node",
+      "build/build.js",
+      "--env",
+      "sit"
+    ],
+    "build:pre": [
+      "node",
+      "build/build.js",
+      "--env",
+      "pre"
+    ],
+    "build:prd": [
+      "node",
+      "build/build.js",
+      "--env",
+      "prd"
+    ],
+    "lint:es": [
+      "eslint",
+      "--ext",
+      ".js,.vue,.ts",
+      "src"
+    ],
+    "lint:style": [
+       "stylelint",
+       "'src/**/*.{vue,less}'"
+    ],
+    "fix:es": [
+      "eslint",
+      "--fix",
+      "--ext",
+      ".js,.vue,.ts",
+      "src"
+    ],
+    "fix:style": [
+      "stylelint",
+      "'src/**/*.{vue,less}'",
+      " --fix"
+    ],
+    "prepare": [
+      "husky",
+      "install"
+    ],
+    "release": [
+      "standard-version"
+    ]
+  }
+}

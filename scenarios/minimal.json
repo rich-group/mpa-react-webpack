@@ -1,0 +1,7 @@
+{ 
+  "name": "template",
+  "description": "A Vue3 MPA project",
+  "router": false,
+  "lint": true,
+  "ts": false
+}

@@ -1,0 +1,65 @@
+{
+  "scripts": {
+    "dev": [
+      "{{#if ts}}ts-{{/if}}node",
+      "build/dev.server.{{#if ts}}ts{{else}}js{{/if}}",
+      "--env",
+      {"type": "list", "message": "请选择环境", "choices": ["dev", "sit", "pre", "prd"], "default": 0},
+      "--module",
+      {"type": "text", "message": "请输入启动的模块"}
+    ],
+    "build:dev": [
+      "{{#if ts}}ts-{{/if}}node",
+      "build/build.{{#if ts}}ts{{else}}js{{/if}}",
+      "--env",
+      "dev"
+    ],
+    "build:sit": [
+      "{{#if ts}}ts-{{/if}}node",
+      "build/build.{{#if ts}}ts{{else}}js{{/if}}",
+      "--env",
+      "sit"
+    ],
+    "build:pre": [
+      "{{#if ts}}ts-{{/if}}node",
+      "build/build.{{#if ts}}ts{{else}}js{{/if}}",
+      "--env",
+      "pre"
+    ],
+    "build:prd": [
+      "{{#if ts}}ts-{{/if}}node",
+      "build/build.{{#if ts}}ts{{else}}js{{/if}}",
+      "--env",
+      "prd"
+    ],
+    "lint:es": [
+      "eslint",
+      "--ext",
+      ".js,.vue,.ts",
+      "src"
+    ],
+    "lint:style": [
+       "stylelint",
+       "'src/**/*.{vue,less}'"
+    ],
+    "fix:es": [
+      "eslint",
+      "--fix",
+      "--ext",
+      ".js,.vue,.ts",
+      "src"
+    ],
+    "fix:style": [
+      "stylelint",
+      "'src/**/*.{vue,less}'",
+      " --fix"
+    ],
+    "prepare": [
+      "husky",
+      "install"
+    ],
+    "release": [
+      "standard-version"
+    ]
+  }
+}
