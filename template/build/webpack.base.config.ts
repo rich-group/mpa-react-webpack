@@ -1,11 +1,10 @@
-import { VueLoaderPlugin } from 'vue-loader';
 import * as webpack from 'webpack';
 import fs from 'fs';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import WebpackBar from 'webpackbar';
 import path from 'path';
 import config from '../config';
-import loaders from './vue-loader.config';
+import loaders from './loader.config';
 import { globSync } from 'glob';
 import minimist from 'minimist';
 
@@ -27,10 +26,10 @@ function getEntries (rootName: string, moduleName: string) {
     const pages = globSync(`${rootName}/+(**)/`).map(path => path.replace(/src\/([0-9a-zA-Z])+\//, ''));
     return moduleName === undefined 
       ? pages.reduce((entry: any, pageName) => {
-        entry[pageName] = `./${rootName}/${pageName}/main.ts`;
+        entry[pageName] = `./${rootName}/${pageName}/main.tsx`;
         return entry;
       }, {})
-      : {[moduleName]: `./${rootName}/${moduleName}/main.ts`};
+      : {[moduleName]: `./${rootName}/${moduleName}/main.tsx`};
   }
   throw new Error('The pages folder is missing in the src directory');
 }
@@ -69,10 +68,7 @@ const baseConfig: webpack.Configuration = {
     // syncWebAssembly: true,
     topLevelAwait: true, // 能够在顶层使用await, 方便es6动态导入(仅支持webpack5)
   },
-  entry: {
-    ...entryObj,
-    vendor: ['vue'],
-  },
+  entry: entryObj,
   target: 'web',
   output: {
     path: config.build.assetsRoot,
@@ -83,21 +79,15 @@ const baseConfig: webpack.Configuration = {
     clean: true                   // webpack5不需要clean-webpack-plugin，会自动追踪新增、删除、修改的文件
   },
   resolve: {
-    extensions: ['.js', '.vue', '.ts', '.tsx'],
+    extensions: ['.js', 'jsx', '.ts', '.tsx'],
     // 别名配置，需要同步tsconfig.json中paths字段
     alias: {
-      'vue': '@vue/runtime-dom',
       '@utils': '/utils', // 每当引模块的时候，它会直接从映射的路径引入而不需要按模块的查找规则查找, 加快 webpack 查找模块的速度
       '@': '/src',
     }
   },
   module: {
     rules: [
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        exclude: /node_modules/
-      },
       {
         test: /\.m?(j|t)sx?$/,
         exclude: /node_modules/,
@@ -120,9 +110,7 @@ const baseConfig: webpack.Configuration = {
   },
   plugins: [
     new WebpackBar({}),
-    new VueLoaderPlugin(),
     new webpack.DefinePlugin({
-      // 'process.env': JSON.stringify(Object.assign({}, config.build.env, {language})),
       'process.env': JSON.stringify(config.build.env)
     }),
     new webpack.ProvidePlugin({
@@ -131,15 +119,8 @@ const baseConfig: webpack.Configuration = {
     }),
     new ModuleFederationPlugin({
       name: 'remote_activities',
-      exposes: {
-        './FlashSale': './src/pages/flashSale/app.vue'
-      },
-      shared: {
-        vue: {
-          eager: true,
-          singleton: true
-        }
-      }
+      exposes: {},
+      shared: {}
     }),
   ]
 };

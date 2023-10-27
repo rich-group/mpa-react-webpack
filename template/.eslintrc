@@ -1,5 +1,5 @@
 {
-    "parser": "vue-eslint-parser",
+    "parser": "@typescript-eslint/parser",
     "globals": {
         "process": true,
         "$API": true,
@@ -13,7 +13,7 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:vue/vue3-recommended",
+        "plugin:react-hooks/recommended",
         "plugin:@typescript-eslint/recommended"
     ],
     "parserOptions": {
@@ -22,14 +22,9 @@
         "sourceType": "module"
     },
     "plugins": [
-        "vue",
         "@typescript-eslint"
     ],
     "rules": {
-        "vue/valid-v-for": "off",
-        "vue/no-v-html": "off",
-        "vue/require-v-for-key": "off",
-        "vue/require-default-prop": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-var-requires": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",

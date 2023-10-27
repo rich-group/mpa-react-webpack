@@ -4,21 +4,22 @@
     "rootDir": ".",
     "allowJs": true,
     "target": "esnext",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "esnext",
+    "skipLibCheck": true,
     "moduleResolution": "node",
     "strict": true,
-    "jsx": "preserve",
+    "noUnusedLocals":true,
+    "jsx": "react-jsx",
     "sourceMap": false,
     "declaration": false,
+    "noUnusedParameters": true,
     "removeComments": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "noFallthroughCasesInSwitch": true,
     "noImplicitAny": false,
     "allowSyntheticDefaultImports": true,
-    "lib": [
-      "esnext",
-      "dom"
-    ],
     "outDir": "./tsc/test",
     "paths": {
       "@/*": [
@@ -41,13 +42,10 @@
     }
   },
   "include": [
-    "typings/*.ts",
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "build/**/*.ts",
-    "config/**/*.ts"
+    "typings",
+    "src",
+    "build",
+    "config"
   ],
   "exclude": [
     "node_modules",
