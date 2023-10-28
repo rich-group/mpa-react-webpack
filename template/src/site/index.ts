@@ -1,18 +1,18 @@
-import { createI18n } from 'vue-i18n';
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
 
-const languageFiles = require.context('@/locales', true, /(?<!index)\.ts/);
-const sitefiles = require.context('.', true, /(?<!index)\.ts/);
+const languageFiles = require.context('@/locales', true, /(?<!index)\.js/);
+const sitefiles = require.context('.', true, /(?<!index)\.js/);
 const defaultSite = 'www';
 
-const siteReg = /(-.+)?\.\w+/g;
-
-const hostPrefix = window.location.host.replace(siteReg, ''); 
+const prefixReg = /[\.]\w+/g;
+const hostPrefix = window.location.host.replace(prefixReg, ''); 
 const siteName = window.location.protocol === 'https:' ? hostPrefix : defaultSite;
 
 const languages = languageFiles.keys()
   .reduce((obj, modulePath) => {
     const fileName = /[a-zA-Z]+/.exec(modulePath)?.[0] || '';
-    return Object.assign({}, obj, {[fileName]: languageFiles(modulePath)?.default });
+    return Object.assign({}, obj, {[fileName]: {translation: languageFiles(modulePath)?.default }});
   }, {});
 
 const sites = sitefiles.keys()
@@ -23,11 +23,13 @@ const sites = sitefiles.keys()
 
 
 export const initI18n = () => {
-  return createI18n({
-    legacy: false,
-    locale: sites[siteName].lang,
-    messages: languages
-  });
+  i18n
+    .use(initReactI18next)
+    .init({
+      resources: languages,
+      lng: sites[siteName].lang
+    })
 };
+
 
 export const site = sites[siteName];
