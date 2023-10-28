@@ -1,6 +1,6 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import { initI18n } from '../../site/index.js'
+import { initI18n } from '../../site'
 import 'tailwindcss/tailwind.css';
 import App from './app'
 

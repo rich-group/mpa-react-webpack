@@ -1,8 +1,8 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
-const languageFiles = require.context('@/locales', true, /(?<!index)\.js/);
-const sitefiles = require.context('.', true, /(?<!index)\.js/);
+const languageFiles = require.context('@/locales', true, /(?<!index)\.ts/);
+const sitefiles = require.context('.', true, /(?<!index)\.ts/);
 const defaultSite = 'www';
 
 const prefixReg = /[\.]\w+/g;
